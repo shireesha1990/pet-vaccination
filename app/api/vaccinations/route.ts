@@ -1,39 +1,52 @@
 import { NextResponse, NextRequest } from 'next/server';
 import db from '@/lib/db';
 
-export async function GET() {
-  const data = [
-    {
-      name: "Rabies",
-      status: "completed",
-      lastCompleted: "15/03/2025",
-      dueDate: "15/03/2026"
-    },
-    {
-      name: "Leptospirosis",
-      status: "completed",
-      lastCompleted: "10/10/2024",
-      dueDate: "10/10/2025"
-    },
-    {
-      name: "Parvovirus",
-      status: "due soon",
-      lastCompleted: "30/06/2024",
-      dueDate: "30/06/2025"
-    },
-    {
-      name: "Kennel Cough",
-      status: "over due",
-      lastCompleted: null,
-      dueDate: "15/06/2025"
-    }
-  ];
+// export async function GET() {
+//   const data = [
+//     {
+//       name: "Rabies",
+//       status: "completed",
+//       lastCompleted: "15/03/2025",
+//       dueDate: "15/03/2026"
+//     },
+//     {
+//       name: "Leptospirosis",
+//       status: "completed",
+//       lastCompleted: "10/10/2024",
+//       dueDate: "10/10/2025"
+//     },
+//     {
+//       name: "Parvovirus",
+//       status: "due soon",
+//       lastCompleted: "30/06/2024",
+//       dueDate: "30/06/2025"
+//     },
+//     {
+//       name: "Kennel Cough",
+//       status: "over due",
+//       lastCompleted: null,
+//       dueDate: "15/06/2025"
+//     }
+//   ];
 
-  return NextResponse.json(data);
+//   return NextResponse.json(data);
+// }
+
+export async function GET() {
+  try {
+    const stmt = db.prepare('SELECT * FROM vaccinations');
+    const vaccinations = stmt.all();
+
+    return NextResponse.json(vaccinations);
+  } catch (error) {
+    console.error('DB error:', error);
+    return NextResponse.json({ error: 'Failed to fetch vaccinations' }, { status: 500 });
+  }
 }
 
+
 export async function POST(req: NextRequest) {
-  const body = await req.json(); 
+  const body = await req.json();
   const { vaccine_name, last_completed } = body; 
 
   if (!vaccine_name) {

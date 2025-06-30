@@ -8,14 +8,6 @@ console.log('Using DB file:', dbPath);
 db.pragma('journal_mode = WAL');
 
 db.exec(`
-  CREATE TABLE IF NOT EXISTS pets (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    breed TEXT NOT NULL,
-    age TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
   CREATE TABLE IF NOT EXISTS vaccinations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     vaccine_name TEXT NOT NULL,

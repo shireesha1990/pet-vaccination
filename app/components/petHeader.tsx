@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AddVaccinationButton from './addVaccinationButton';
+import VaccinationModal from './vaccinationModal';
 
 interface PetHeaderProps {
   petName?: string;
@@ -8,12 +9,18 @@ interface PetHeaderProps {
   className?: string;
 }
 
+const handleAddVaccination = (data: { name: string; lastCompleted: string }) => {
+    console.log("Submitted data:", data);
+    fetch('/api/vaccinations', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } })
+  };
+
 const PetHeader: React.FC<PetHeaderProps> = ({
   petName = "Bobby",
   breed = "Golden Retriever",
   age = "1 year old",
   className = ""
 }) => {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <div className={`flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 ${className}`}>
       <div className='flex-1 text-left'>
@@ -24,7 +31,12 @@ const PetHeader: React.FC<PetHeaderProps> = ({
           {breed} | {age}
         </p>
       </div>
-      <AddVaccinationButton></AddVaccinationButton>
+      <AddVaccinationButton onClick={() => setModalOpen(true)} ></AddVaccinationButton>
+      <VaccinationModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSubmit={handleAddVaccination}
+      />
     </div>
   );
 };

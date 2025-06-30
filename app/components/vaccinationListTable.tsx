@@ -6,9 +6,9 @@ import { Calendar , XCircle, CheckCircle } from 'lucide-react'
 type VaccinationStatus = 'completed' | 'due soon' | 'over due';
 
 type VaccinationRecord = {
-  name: string;
+  vaccine_name: string;
   status: VaccinationStatus;
-  lastCompleted: string | null;
+  last_completed: string | null;
   dueDate: string;
 };
 
@@ -45,13 +45,13 @@ export default function VaccinationListTable() {
         <tbody>
           {(vaccinations as VaccinationRecord[]).map((vaccine: VaccinationRecord, idx: number) => (
             <tr key={idx} className="bg-peach-50">
-              <td className="px-4 py-3">{vaccine.name}</td>
+              <td className="px-4 py-3">{vaccine.vaccine_name}</td>
               <td className="px-4 py-3">
                 <span className={`px-3 py-1 text-sm rounded-full inline-flex items-center gap-1 ${statusStyles[vaccine.status]}`}>
                   {vaccine.status === 'completed' && '✓'} {vaccine.status}
                 </span>
               </td>
-              <td className="px-4 py-3">{vaccine.lastCompleted || '-'}</td>
+              <td className="px-4 py-3">{vaccine.last_ompleted || '-'}</td>
               <td className="px-4 py-3">{vaccine.dueDate}</td>
               <td className="px-4 py-3">
                 {vaccine.status === 'due soon' ? (

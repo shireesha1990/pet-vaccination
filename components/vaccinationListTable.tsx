@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { CalendarIcon, CheckIcon, XIcon } from '@heroicons/react/solid';
+import { Calendar , XCircle, CheckCircle } from 'lucide-react'
 import vaccinations from '@/data/vaccinations.json';
 
 type VaccinationStatus = 'completed' | 'due soon' | 'over due';
@@ -25,7 +25,7 @@ export default function VaccinationListTable() {
   return (
     <div className="p-6 bg-peach-50 text-[#2F403D] font-sans">
       <table className="w-full text-left border-collapse rounded-xl overflow-hidden">
-        <thead className="bg-peach-100 text-[#2F403D]">
+        <thead className="bg-peach-100 text-[#256B74] border-b">
           <tr>
             <th className="px-4 py-3">Vaccination</th>
             <th className="px-4 py-3">Status</th>
@@ -36,7 +36,7 @@ export default function VaccinationListTable() {
         </thead>
         <tbody>
           {(vaccinations as VaccinationRecord[]).map((vaccine: VaccinationRecord, idx: number) => (
-            <tr key={idx} className="bg-peach-50 border-b border-peach-200">
+            <tr key={idx} className="bg-peach-50">
               <td className="px-4 py-3">{vaccine.name}</td>
               <td className="px-4 py-3">
                 <span className={`px-3 py-1 text-sm rounded-full inline-flex items-center gap-1 ${statusStyles[vaccine.status]}`}>
@@ -59,19 +59,19 @@ export default function VaccinationListTable() {
                         defaultValue="2025-06-19"
                       />
                       <button>
-                        <CalendarIcon className="w-5 h-5 text-gray-500" />
+                        <Calendar className="w-5 h-5" />
                       </button>
                       <button onClick={() => setEditing(null)}>
-                        <XIcon className="w-5 h-5 text-red-500" />
+                        <XCircle className="w-4 h-4" />    
                       </button>
                       <button>
-                        <CheckIcon className="w-5 h-5 text-green-600" />
+                        <CheckCircle className="w-5 h-5" />
                       </button>
                     </div>
                   ) : (
                     <button
                       onClick={() => setEditing(idx)}
-                      className="text-sm text-[#2F403D] underline"
+                      className="text-sm text-[##256B74] underline"
                     >
                       Set Date
                     </button>

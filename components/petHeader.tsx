@@ -15,7 +15,7 @@ const PetHeader: React.FC<PetHeaderProps> = ({
   className = ""
 }) => {
   return (
-    <div className={`flex justify-between items-start gap-4${className}`}>
+    <div className={`flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 ${className}`}>
       <div className='flex-1 text-left'>
         <h1 className="text-2xl font-semibold text-gray-900 mb-2">
           {petName}'s vaccinations

@@ -4,7 +4,7 @@ import VaccinationListTable from "@/components/vaccinationListTable";
 export default function Home() {
   return (
     <div className="grid  items-center justify-items-center p-6 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+      <main>
         <PetHeader></PetHeader>
         <VaccinationListTable></VaccinationListTable>
         <div className="flex gap-4 items-center flex-col sm:flex-row">

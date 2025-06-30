@@ -1,0 +1,33 @@
+import { NextResponse } from 'next/server';
+import db from '../../../lib/db';
+
+export async function GET() {
+  const data = [
+    {
+      name: "Rabies",
+      status: "completed",
+      lastCompleted: "15/03/2025",
+      dueDate: "15/03/2026"
+    },
+    {
+      name: "Leptospirosis",
+      status: "completed",
+      lastCompleted: "10/10/2024",
+      dueDate: "10/10/2025"
+    },
+    {
+      name: "Parvovirus",
+      status: "due soon",
+      lastCompleted: "30/06/2024",
+      dueDate: "30/06/2025"
+    },
+    {
+      name: "Kennel Cough",
+      status: "over due",
+      lastCompleted: null,
+      dueDate: "15/06/2025"
+    }
+  ];
+
+  return NextResponse.json(data);
+}

@@ -1,5 +1,7 @@
-import PetHeader from "@/components/petHeader";
-import VaccinationListTable from "@/components/vaccinationListTable";
+'use client';
+import PetHeader from "@/app/components/petHeader";
+import VaccinationListTable from "@/app/components/vaccinationListTable";
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   return (

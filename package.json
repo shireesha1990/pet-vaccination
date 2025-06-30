@@ -16,12 +16,15 @@
   "devDependencies": {
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/postcss": "^4",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
+    "better-sqlite3": "^11.10.0",
     "lucide-react": "^0.525.0",
     "postcss": "^8.5.6",
+    "sqlite3": "^5.1.7",
     "tailwindcss": "^4.1.11",
     "typescript": "^5"
   }

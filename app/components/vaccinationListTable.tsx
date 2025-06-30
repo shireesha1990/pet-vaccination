@@ -1,7 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import { Calendar , XCircle, CheckCircle } from 'lucide-react'
-import vaccinations from '@/data/vaccinations.json';
+// import vaccinations from '../data/vaccinations.json';
 
 type VaccinationStatus = 'completed' | 'due soon' | 'over due';
 
@@ -21,6 +21,14 @@ const statusStyles: Record<VaccinationStatus, string> = {
 
 export default function VaccinationListTable() {
   const [editing, setEditing] = useState<number | null>(null);
+
+  const [vaccinations, setVaccinations] = useState([]);
+
+    useEffect(() => {
+    fetch('/api/vaccinations')
+      .then(res => res.json())
+      .then(data => setVaccinations(data));
+  }, []);
 
   return (
     <div className="p-6 bg-peach-50 text-[#2F403D] font-sans">

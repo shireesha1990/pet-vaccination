@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import db from '../../../lib/db';
+import { NextResponse, NextRequest } from 'next/server';
+import db from '@/lib/db';
 
 export async function GET() {
   const data = [
@@ -30,4 +30,33 @@ export async function GET() {
   ];
 
   return NextResponse.json(data);
+}
+
+export async function POST(req: NextRequest) {
+  const body = await req.json(); 
+  const { vaccine_name, last_completed } = body; 
+
+  if (!vaccine_name) {
+    return NextResponse.json({ error: 'Name is required' }, { status: 400 });
+  }
+
+  const insert = db.prepare(`
+    INSERT INTO vaccinations (vaccine_name, last_completed, status, next_due_date)
+    VALUES (?, ?, ?, ?)
+  `);
+
+  const status = last_completed ? 'completed' : 'over due';
+  const next_due_date = last_completed
+    ? computeDueDate(last_completed)
+    : null;
+
+  insert.run(vaccine_name,last_completed, status, next_due_date);
+
+  return NextResponse.json({ success: true });
+}
+
+function computeDueDate(last_completed: string) {
+  const [day, month, year] = last_completed.split('/').map(Number);
+  const due = new Date(year + 1, month - 1, day);
+  return due.toLocaleDateString('en-GB'); // dd/mm/yyyy
 }

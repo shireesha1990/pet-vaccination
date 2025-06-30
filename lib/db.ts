@@ -3,6 +3,7 @@ import path from 'path';
 
 const dbPath = path.join(process.cwd(), 'database.sqlite');
 const db = new Database(dbPath);
+console.log('Using DB file:', dbPath);  
 
 db.pragma('journal_mode = WAL');
 
@@ -17,12 +18,11 @@ db.exec(`
 
   CREATE TABLE IF NOT EXISTS vaccinations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    pet_id INTEGER NOT NULL,
     vaccine_name TEXT NOT NULL,
-    date_administered DATE NOT NULL,
+    status TEXT NOT NULL,
+    last_completed DATE NOT NULL,
     next_due_date DATE,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (pet_id) REFERENCES pets (id)
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 `);
 

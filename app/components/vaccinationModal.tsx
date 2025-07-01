@@ -19,6 +19,7 @@ export default function VaccinationModal({ isOpen, onClose, onSubmit }: ModalPro
     setName("");
     setLastCompleted("");
     onClose();
+    window.location.reload();
   };
 
   return (
@@ -51,6 +52,7 @@ export default function VaccinationModal({ isOpen, onClose, onSubmit }: ModalPro
             value={vaccine_name}
             onChange={(e) => setName(e.target.value)}
             required
+            className=""
             placeholder="Rabies"
           />
         </label>
@@ -60,7 +62,6 @@ export default function VaccinationModal({ isOpen, onClose, onSubmit }: ModalPro
             type="date"
             value={last_completed}
             onChange={(e) => setLastCompleted(e.target.value)}
-            required
           />
         </label>
         <div style={{ display: "flex", justifyContent: "space-between" }}>

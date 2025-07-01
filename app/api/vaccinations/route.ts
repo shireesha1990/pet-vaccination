@@ -48,6 +48,7 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { vaccine_name, last_completed } = body; 
+  console.log(body);
 
   if (!vaccine_name) {
     return NextResponse.json({ error: 'Name is required' }, { status: 400 });
@@ -59,7 +60,7 @@ export async function POST(req: NextRequest) {
   `);
 
   const status = last_completed ? 'completed' : 'over due';
-  const next_due_date = last_completed
+  const next_due_date = last_completed == null
     ? computeDueDate(last_completed)
     : null;
 

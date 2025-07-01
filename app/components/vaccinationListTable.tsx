@@ -51,7 +51,7 @@ export default function VaccinationListTable() {
                   {vaccine.status === 'completed' && '✓'} {vaccine.status}
                 </span>
               </td>
-              <td className="px-4 py-3">{vaccine.last_ompleted || '-'}</td>
+              <td className="px-4 py-3">{vaccine.last_completed || '-'}</td>
               <td className="px-4 py-3">{vaccine.dueDate}</td>
               <td className="px-4 py-3">
                 {vaccine.status === 'due soon' ? (

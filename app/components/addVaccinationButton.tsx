@@ -3,7 +3,7 @@ import React from 'react';
 import { Plus } from 'lucide-react';
 
 interface AddVaccinationButtonProps {
-  onClick?: () => void,
+  onClick: () => void,
   disabled?: boolean;
   loading?: boolean;
   className?: string;
@@ -11,7 +11,7 @@ interface AddVaccinationButtonProps {
 }
 
 const AddVaccinationButton: React.FC<AddVaccinationButtonProps> = ({
-  onClick = () => void,
+  onClick,
   disabled = false,
   loading = false,
   className = "",

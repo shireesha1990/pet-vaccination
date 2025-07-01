@@ -20,12 +20,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Description
 
 This is a web app full stack built using next.js, typescript and sqlite.
+```bash
 Functionality includes
 -> Display vaccinations
 -> Add Vaccination
 -> calculate next due date
 -> display status
 -> Filter by status
+```
 
 
 ## API

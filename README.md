@@ -24,11 +24,13 @@ This is a web app full stack built using next.js, typescript and sqlite.
 ## API
 
 App has following apis:
-
+```bash
 GET: api/vaccinations - all vaccinations for given pet is available 
-POST: api/vaccinations - Can Add vaccination using front-end / postman vaccine_name is mandatory and last_completed in string format.
+
+POST: api/vaccinations - Can Add vaccination details using front-end / postman vaccine_name is\n mandatory and last_completed in string format (optional).
 {content-type: application/json}
 
+```
 
 Reference [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 

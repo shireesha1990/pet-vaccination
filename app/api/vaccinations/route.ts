@@ -59,19 +59,24 @@ export async function POST(req: NextRequest) {
   `);
 
   const status = last_completed ? 'completed' : 'over due';
-  const next_due_date = last_completed === null
-    ? computeDueDate(last_completed)
-    : null;
+  const next_due_date = calculateNextDueDate(last_completed);
   console.log(last_completed);
   insert.run(vaccine_name,last_completed, status, next_due_date);
 
   return NextResponse.json({ success: true });
 }
 
-function computeDueDate(last_completed: string) {
-  console.log(last_completed);
-  const [day, month, year] = last_completed.split('-').map(Number);
-  const due = new Date(year + 1, month - 1, day);
-  return due.toLocaleDateString('en-GB'); // dd/mm/yyyy
+function calculateNextDueDate(dateStr: string): string | null {
+  const [day, month, year] = dateStr.split('/').map(Number);
 
+  // Create date object from parts
+  const lastCompleted = new Date(year, month - 1, day); // month is 0-based
+
+  // Add 1 year
+  const nextDue = new Date(lastCompleted);
+  nextDue.setFullYear(lastCompleted.getFullYear() + 1);
+
+  // Format as dd/mm/yyyy
+  const formatted = nextDue.toLocaleDateString('en-GB'); // Output: 12/07/2026
+  return formatted;
 }

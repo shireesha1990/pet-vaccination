@@ -60,7 +60,8 @@ export default function VaccinationModal({ isOpen, onClose, onSubmit }: ModalPro
           Last Completed
           <input
             className="m-2"
-            type="date"
+            type="text"
+            placeholder="dd/mm/yyy"
             value={last_completed}
             onChange={(e) => setLastCompleted(e.target.value)}
           />

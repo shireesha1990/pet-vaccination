@@ -12,8 +12,8 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     vaccine_name TEXT NOT NULL,
     status TEXT NOT NULL,
-    last_completed DATE NOT NULL,
-    next_due_date DATE,
+    last_completed TEXT,
+    next_due_date TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 `);

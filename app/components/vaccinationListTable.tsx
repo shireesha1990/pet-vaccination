@@ -3,7 +3,7 @@ import { useState , useEffect} from 'react';
 import { Calendar , XCircle, CheckCircle } from 'lucide-react'
 // import vaccinations from '../data/vaccinations.json';
 
-type VaccinationStatus = 'completed' | 'due soon' | 'over due';
+type VaccinationStatus = 'completed' | 'due soon' | 'over due' | 'all';
 
 type VaccinationRecord = {
   vaccine_name: string;
@@ -16,6 +16,7 @@ const statusStyles: Record<VaccinationStatus, string> = {
   completed: 'bg-green-100 text-green-700',
   'due soon': 'bg-orange-100 text-orange-700',
   'over due': 'bg-red-100 text-red-700',
+  'all' : ''
 };
 
 
@@ -32,9 +33,12 @@ export default function VaccinationListTable() {
       .then(data => setVaccinations(data));
   }, []);
 
-  const filteredData = vaccinations.filter((item) =>
-    statusFilter === "all" ? true : item === statusFilter
-  );
+  //TODO: Can be moved to helper function
+  function filterByStatus(vaccinations: VaccinationRecord[], status: string): VaccinationRecord[] {
+   return statusFilter !='all' ? vaccinations.filter(v => v.status === status): vaccinations;
+  }
+  //applied filter
+  const vaccinationsFilter = filterByStatus(vaccinations , statusFilter)
 
   return (
     <div className="p-6 bg-peach-50 text-[#2F403D] font-sans">
@@ -66,7 +70,7 @@ export default function VaccinationListTable() {
           </tr>
         </thead>
         <tbody>
-          {(filteredData as VaccinationRecord[]).map((vaccine: VaccinationRecord, idx: number) => (
+          {(vaccinationsFilter as VaccinationRecord[]).map((vaccine: VaccinationRecord, idx: number) => (
             <tr key={idx} className="bg-peach-50">
               <td className="px-4 py-3">{vaccine.vaccine_name}</td>
               <td className="px-4 py-3">

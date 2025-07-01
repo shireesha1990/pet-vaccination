@@ -1,42 +1,14 @@
 import { NextResponse, NextRequest } from 'next/server';
 import db from '@/lib/db';
+import vaccinations  from '@/app/data/vaccinations.json'
+import { getNextDueDate } from '@/app/util/helper';
 
-// export async function GET() {
-//   const data = [
-//     {
-//       name: "Rabies",
-//       status: "completed",
-//       lastCompleted: "15/03/2025",
-//       dueDate: "15/03/2026"
-//     },
-//     {
-//       name: "Leptospirosis",
-//       status: "completed",
-//       lastCompleted: "10/10/2024",
-//       dueDate: "10/10/2025"
-//     },
-//     {
-//       name: "Parvovirus",
-//       status: "due soon",
-//       lastCompleted: "30/06/2024",
-//       dueDate: "30/06/2025"
-//     },
-//     {
-//       name: "Kennel Cough",
-//       status: "over due",
-//       lastCompleted: null,
-//       dueDate: "15/06/2025"
-//     }
-//   ];
-
-//   return NextResponse.json(data);
-// }
 
 export async function GET() {
+  let seededData = vaccinations;
   try {
     const stmt = db.prepare('SELECT * FROM vaccinations');
     const vaccinations = stmt.all();
-
     return NextResponse.json(vaccinations);
   } catch (error) {
     console.error('DB error:', error);
@@ -59,24 +31,8 @@ export async function POST(req: NextRequest) {
   `);
 
   const status = last_completed ? 'completed' : 'over due';
-  const next_due_date = calculateNextDueDate(last_completed);
-  console.log(last_completed);
+  const next_due_date = getNextDueDate(last_completed);
   insert.run(vaccine_name,last_completed, status, next_due_date);
 
   return NextResponse.json({ success: true });
-}
-
-function calculateNextDueDate(dateStr: string): string | null {
-  const [day, month, year] = dateStr.split('/').map(Number);
-
-  // Create date object from parts
-  const lastCompleted = new Date(year, month - 1, day); // month is 0-based
-
-  // Add 1 year
-  const nextDue = new Date(lastCompleted);
-  nextDue.setFullYear(lastCompleted.getFullYear() + 1);
-
-  // Format as dd/mm/yyyy
-  const formatted = nextDue.toLocaleDateString('en-GB'); // Output: 12/07/2026
-  return formatted;
 }

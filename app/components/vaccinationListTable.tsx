@@ -1,6 +1,7 @@
 'use client';
 import { useState , useEffect} from 'react';
 import { Calendar , XCircle, CheckCircle } from 'lucide-react'
+import { getVaccinationStatus } from '../util/helper';
 // import vaccinations from '../data/vaccinations.json';
 
 type VaccinationStatus = 'completed' | 'due soon' | 'over due' | 'all';
@@ -81,7 +82,7 @@ export default function VaccinationListTable() {
               <td className="px-4 py-3">{vaccine.last_completed || '-'}</td>
               <td className="px-4 py-3">{vaccine.next_due_date }</td>
               <td className="px-4 py-3">
-                {vaccine.status === 'due soon' ? (
+                {getVaccinationStatus(vaccine.next_due_date)  === 'due soon' ? (
                   <button className="bg-[#256B74] text-white text-sm px-4 py-2 rounded-full">
                     MARK COMPLETE
                   </button>

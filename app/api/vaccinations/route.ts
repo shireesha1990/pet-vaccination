@@ -1,11 +1,9 @@
 import { NextResponse, NextRequest } from 'next/server';
 import db from '@/lib/db';
 import vaccinations  from '@/app/data/vaccinations.json'
-import { getNextDueDate } from '@/app/util/helper';
-
+import { getNextDueDate, getVaccinationStatus } from '@/app/util/helper';
 
 export async function GET() {
-  let seededData = vaccinations;
   try {
     const stmt = db.prepare('SELECT * FROM vaccinations');
     const vaccinations = stmt.all();
@@ -29,9 +27,10 @@ export async function POST(req: NextRequest) {
     INSERT INTO vaccinations (vaccine_name, last_completed, status, next_due_date)
     VALUES (?, ?, ?, ?)
   `);
-
-  const status = last_completed ? 'completed' : 'over due';
+  
+  let status = last_completed ? 'completed' : 'over due';
   const next_due_date = getNextDueDate(last_completed);
+  status = getVaccinationStatus(next_due_date);
   insert.run(vaccine_name,last_completed, status, next_due_date);
 
   return NextResponse.json({ success: true });

@@ -43,5 +43,5 @@ POST: api/vaccinations - Can Add vaccination details using front-end / postman v
 
 ```
 
-Reference [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+your feedback are welcome!
 

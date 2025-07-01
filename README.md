@@ -27,6 +27,8 @@ Functionality includes
 -> calculate next due date
 -> display status
 -> Filter by status
+
+Further I would like to implement pet and vaccination connection add pet has-many relationship with vaccination table.
 ```
 
 

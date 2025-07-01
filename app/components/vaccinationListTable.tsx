@@ -9,7 +9,7 @@ type VaccinationRecord = {
   vaccine_name: string;
   status: VaccinationStatus;
   last_completed: string | null;
-  dueDate: string;
+  next_due_date : string;
 };
 
 const statusStyles: Record<VaccinationStatus, string> = {
@@ -75,7 +75,7 @@ export default function VaccinationListTable() {
                 </span>
               </td>
               <td className="px-4 py-3">{vaccine.last_completed || '-'}</td>
-              <td className="px-4 py-3">{vaccine.dueDate}</td>
+              <td className="px-4 py-3">{vaccine.next_due_date }</td>
               <td className="px-4 py-3">
                 {vaccine.status === 'due soon' ? (
                   <button className="bg-[#256B74] text-white text-sm px-4 py-2 rounded-full">

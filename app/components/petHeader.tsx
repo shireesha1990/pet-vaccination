@@ -10,7 +10,7 @@ interface PetHeaderProps {
   className?: string;
 }
 
-const handleAddVaccination = (data: { name: string; lastCompleted: string }) => {
+const handleAddVaccination = (data: { vaccine_name: string; last_completed: string }) => {
     console.log("Submitted data:", data);
     fetch('/api/vaccinations', { method: 'POST', body: JSON.stringify(data), headers: { 'Content-Type': 'application/json' } })
   };

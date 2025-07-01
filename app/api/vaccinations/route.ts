@@ -48,7 +48,6 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { vaccine_name, last_completed } = body; 
-  console.log(body);
 
   if (!vaccine_name) {
     return NextResponse.json({ error: 'Name is required' }, { status: 400 });
@@ -60,17 +59,19 @@ export async function POST(req: NextRequest) {
   `);
 
   const status = last_completed ? 'completed' : 'over due';
-  const next_due_date = last_completed == null
+  const next_due_date = last_completed === null
     ? computeDueDate(last_completed)
     : null;
-
+  console.log(last_completed);
   insert.run(vaccine_name,last_completed, status, next_due_date);
 
   return NextResponse.json({ success: true });
 }
 
 function computeDueDate(last_completed: string) {
-  const [day, month, year] = last_completed.split('/').map(Number);
+  console.log(last_completed);
+  const [day, month, year] = last_completed.split('-').map(Number);
   const due = new Date(year + 1, month - 1, day);
   return due.toLocaleDateString('en-GB'); // dd/mm/yyyy
+
 }

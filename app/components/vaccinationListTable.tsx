@@ -22,6 +22,8 @@ const statusStyles: Record<VaccinationStatus, string> = {
 export default function VaccinationListTable() {
   const [editing, setEditing] = useState<number | null>(null);
 
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+
   const [vaccinations, setVaccinations] = useState([]);
 
     useEffect(() => {
@@ -30,8 +32,29 @@ export default function VaccinationListTable() {
       .then(data => setVaccinations(data));
   }, []);
 
+  const filteredData = vaccinations.filter((item) =>
+    statusFilter === "all" ? true : item === statusFilter
+  );
+
   return (
     <div className="p-6 bg-peach-50 text-[#2F403D] font-sans">
+      <div className="mb-4">
+        <label htmlFor="status" className="mr-2 font-medium">
+          Filter by Status:
+        </label>
+        <select
+          id="status"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="border border-gray-300 rounded-md px-2 py-1"
+        >
+          <option value="all">All</option>
+          <option value="completed">completed</option>
+          <option value="due soon">Due Soon</option>
+          <option value="over due">Over due</option>
+        </select>
+      </div>
+
       <table className="w-full text-left border-collapse rounded-xl overflow-hidden">
         <thead className="bg-peach-100 text-[#256B74] border-b">
           <tr>
@@ -43,7 +66,7 @@ export default function VaccinationListTable() {
           </tr>
         </thead>
         <tbody>
-          {(vaccinations as VaccinationRecord[]).map((vaccine: VaccinationRecord, idx: number) => (
+          {(filteredData as VaccinationRecord[]).map((vaccine: VaccinationRecord, idx: number) => (
             <tr key={idx} className="bg-peach-50">
               <td className="px-4 py-3">{vaccine.vaccine_name}</td>
               <td className="px-4 py-3">

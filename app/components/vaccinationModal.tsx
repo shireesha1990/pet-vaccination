@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 type ModalProps = {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: () => void
   onSubmit: (data: { vaccine_name: string; last_completed: string }) => void;
 };
 
@@ -52,19 +52,20 @@ export default function VaccinationModal({ isOpen, onClose, onSubmit }: ModalPro
             value={vaccine_name}
             onChange={(e) => setName(e.target.value)}
             required
-            className=""
+            className="m-2"
             placeholder="Rabies"
           />
         </label>
         <label>
           Last Completed
           <input
+            className="m-2"
             type="date"
             value={last_completed}
             onChange={(e) => setLastCompleted(e.target.value)}
           />
         </label>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" , cursor: "pointer" }}>
           <button type="submit">Submit</button>
           <button type="button" onClick={onClose} style={{ marginLeft: 10 }}>
             Cancel
